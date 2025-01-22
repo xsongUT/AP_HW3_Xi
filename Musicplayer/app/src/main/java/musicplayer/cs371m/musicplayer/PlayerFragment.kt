@@ -24,7 +24,6 @@ class PlayerFragment : Fragment() {
     // When this is true, the displayTime coroutine should not modify the seek bar
     val userModifyingSeekBar = AtomicBoolean(false)
     private val viewModel: MainViewModel by activityViewModels()
-    // witchel: experiment
     private lateinit var adapter: RVDiffAdapter
 
     private var _binding: PlayerFragmentBinding? = null
@@ -64,7 +63,6 @@ class PlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // witchel: experiment
 
         // Make the RVDiffAdapter and set it up
         //XXX Write me. Setup adapter.
