@@ -13,7 +13,7 @@
     <!--Write me-->
     <!-- Section with Two Lines of Text -->
     <LinearLayout
-        android:id="@+id/info_section"
+        android:id="@+id/info_section_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -22,7 +22,7 @@
 
         <!-- First Row -->
         <LinearLayout
-            android:id="@+id/info_section1"
+            android:id="@+id/info_section_row1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -46,7 +46,7 @@
 
         <!-- Second Row -->
         <LinearLayout
-            android:id="@+id/info_section2"
+            android:id="@+id/info_section_row2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -130,7 +130,7 @@
 
     <!-- Options Section (TextView + Button) -->
     <LinearLayout
-        android:id="@+id/options_section"
+        android:id="@+id/options_section_bottom"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
@@ -170,7 +170,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@id/options_section"
+        app:layout_constraintTop_toBottomOf="@id/options_section_bottom"
         app:layout_constraintBottom_toTopOf="parent"
         android:gravity="center_vertical">
 

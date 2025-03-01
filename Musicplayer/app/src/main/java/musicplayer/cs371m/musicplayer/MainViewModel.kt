@@ -60,19 +60,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getNextSongName() : String {
         // XXX Write me
         return songResources[nextIndex()].name
-        // XXX Write me
+        // XXX End
     }
 
     fun prevSong():SongInfo { //Not sure if should return as SongInfo format, original copy does not have
         // XXX Write me
         currentIndex = if (currentIndex > 0) currentIndex - 1 else songResources.size - 1
         return songResources[currentIndex]
-        // XXX Write me
+        // XXX End
     }
 
     fun getCurrentSongResourceId(): Int {
         // XXX Write me
-        return songResources[currentIndex].uniqueId
-        // XXX Write me
+        return songResources[currentIndex].rawId
+        // XXX End
     }
 }

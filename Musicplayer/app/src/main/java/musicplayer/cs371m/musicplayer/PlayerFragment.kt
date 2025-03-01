@@ -101,7 +101,7 @@ class PlayerFragment : Fragment() {
         // execute concurrently with our code, but will update the displayed time
         val millisec = 100L
         viewLifecycleOwner.lifecycleScope.launch {
-            //Fix this later: displayTime(millisec)
+            displayTime(millisec)
         }
     }
 
@@ -113,8 +113,8 @@ class PlayerFragment : Fragment() {
     private suspend fun displayTime(misc: Long) {
         // This only runs while the display is active
         while (viewLifecycleOwner.lifecycleScope.coroutineContext.isActive) {
-            val currentPosition = viewModel.player.currentPosition
-            val maxTime = viewModel.player.duration
+            //fix later: val currentPosition = viewModel.player.currentPosition
+            //fix later: val maxTime = viewModel.player.duration
             // Update the seek bar (if the user isn't updating it)
             // and update the passed and remaining time
             //XXX Write me
