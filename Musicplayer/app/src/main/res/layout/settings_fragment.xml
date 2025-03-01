@@ -11,13 +11,31 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal">
     <!--Write me-->
-    <!-- Toolbar to display the menu -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <!-- First Row -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:src="@menu/player_menu"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="8dp">
 
+        <TextView
+            android:id="@+id/tv_music_played"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Number of songs played:"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_marginStart="16dp"
+            android:layout_margin="8dp"/>
+
+        <TextView
+            android:id="@+id/count_music_played"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="wait input the number of musics played"
+            android:layout_marginStart="16dp"
+            android:layout_margin="8dp"/>
+    </LinearLayout>
 
 
 
