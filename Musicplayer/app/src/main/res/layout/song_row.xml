@@ -7,6 +7,32 @@
         android:orientation="horizontal">
     <!-- Background attribute gives the whole layout the satisfying ripple
     effect on selection -->
+    <!-- Song Name TextView (Left Side) -->
+    <TextView
+        android:id="@+id/song_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Song Name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@id/song_duration"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <!-- Song Duration TextView (Right Side) -->
+    <TextView
+        android:id="@+id/song_duration"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="3:45"
+        android:textSize="14sp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@id/song_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
     <!-- XXX Write the row layout, textSize 20sp -->
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,15 +30,32 @@ class RVDiffAdapter(private val viewModel: MainViewModel,
         : RecyclerView.ViewHolder(songRowBinding.root) {
         init {
             //XXX Write me.
+            // Set up the click listener for the song row
+            songRowBinding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    // Pass the song index to the clickListener
+                    clickListener(position)
+                }
+            }
+            //XXX end
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         //XXX Write me.
+        // Inflate the song row layout
+        val binding = SongRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+        // XXX end
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //XXX Write me.
+        val song = getItem(position)  // Get the SongInfo for the current position
+        holder.songRowBinding.songName.text = song.name
+        holder.songRowBinding.songDuration.text = song.time
+        // XXX end
     }
 
     class Diff : DiffUtil.ItemCallback<SongInfo>() {

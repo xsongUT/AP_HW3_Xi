@@ -66,6 +66,12 @@ class PlayerFragment : Fragment() {
 
         // Make the RVDiffAdapter and set it up
         //XXX Write me. Setup adapter.
+        // Initialize RecyclerView
+        binding.musicListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        adapter = RVDiffAdapter(viewModel.songList) // Assuming you fetch songs from ViewModel
+        binding.musicListRecyclerView.adapter = adapter
+        initRecyclerViewDividers(binding.musicListRecyclerView)
+        //XXX End
 
         //XXX Write me. Write callbacks for buttons
 

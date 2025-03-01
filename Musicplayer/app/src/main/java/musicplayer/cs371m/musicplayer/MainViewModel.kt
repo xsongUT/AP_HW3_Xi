@@ -35,14 +35,25 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun shuffleAndReturnCopyOfSongInfo(): MutableList<SongInfo> {
         // XXX Write me
+        val shuffledList = songResources.shuffled().toMutableList()
+        return shuffledList
+        //XXX end
     }
 
     fun getCurrentSongName() : String {
         // XXX Write me
+        return songResources[currentIndex].name
+        // XXX end
     }
     // Private function
     private fun nextIndex() : Int {
         // XXX Write me
+        if (currentIndex == songResources.size - 1){
+            return 0
+        }
+        else{
+            return currentIndex+1
+        }
     }
     fun nextSong() {
         // XXX Write me

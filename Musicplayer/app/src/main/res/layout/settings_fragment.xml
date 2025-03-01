@@ -11,5 +11,16 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal">
     <!--Write me-->
+    <!-- Toolbar to display the menu -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:src="@menu/player_menu"/>
+
+
+
+
+
 </LinearLayout>
 
