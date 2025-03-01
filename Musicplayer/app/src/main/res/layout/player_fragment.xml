@@ -28,7 +28,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_before_now_playing"
+                android:id="@+id/playerCurrentSongTextInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Now Playing:"
@@ -37,7 +37,7 @@
                 android:layout_marginStart="16dp"/>
 
             <TextView
-                android:id="@+id/tv_now_playing"
+                android:id="@+id/playerCurrentSongText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="wait input"
@@ -53,7 +53,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_before_next_track"
+                android:id="@+id/playerNextSongTextInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Next up"
@@ -62,7 +62,7 @@
                 android:layout_marginStart="16dp"/>
 
             <TextView
-                android:id="@+id/tv_next_track"
+                android:id="@+id/playerNextSongText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="wait input"
@@ -75,7 +75,7 @@
 
     <!-- FrameLayout for Music List -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/music_list_recyclerView"
+        android:id="@+id/playerRV"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
@@ -90,8 +90,6 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_margin="8dp"
-
-
         >
 
         <ImageButton
@@ -207,10 +205,5 @@
             android:gravity="end" />
 
     </LinearLayout>
-
-
-
-
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>
