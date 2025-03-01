@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -59,6 +60,9 @@ class PlayerFragment : Fragment() {
         }
         //XXX Write me. Make sure all player UI elements are up to date
         // That includes all buttons, textViews, icons & the seek bar
+
+
+        //XXX End
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,24 +70,38 @@ class PlayerFragment : Fragment() {
 
         // Make the RVDiffAdapter and set it up
         //XXX Write me. Setup adapter.
-        // Initialize RecyclerView
-        binding.musicListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = RVDiffAdapter(viewModel.songList) // Assuming you fetch songs from ViewModel
-        binding.musicListRecyclerView.adapter = adapter
-        initRecyclerViewDividers(binding.musicListRecyclerView)
+
+        val vm = viewModel
+        // Setup adapter
+//        adapter = RVDiffAdapter(viewModel){ songIndex ->
+//            //val currentSong = viewModel.currentIndex
+//            //if(currentSong == songIndex){
+//                println("OK")
+//            //}
+//        }
+        //binding.musicListRecyclerView.adapter = adapter
+
+        //No Need: binding.musicListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // initialize list
+        //initRecyclerViewDividers(binding.musicListRecyclerView)
+
         //XXX End
 
         //XXX Write me. Write callbacks for buttons
 
+        //XXX End
+
         //XXX Write me. binding.playerSeekBar.setOnSeekBarChangeListener
 
+        //XXX End
         updateDisplay()
 
         // Don't change this code.  We are launching a coroutine (user-level thread) that will
         // execute concurrently with our code, but will update the displayed time
         val millisec = 100L
         viewLifecycleOwner.lifecycleScope.launch {
-            displayTime(millisec)
+            //Fix this later: displayTime(millisec)
         }
     }
 
@@ -101,6 +119,7 @@ class PlayerFragment : Fragment() {
             // and update the passed and remaining time
             //XXX Write me
 
+            //XXX End
             // Leave this code as is.  it inserts a delay so that this thread does
             // not consume too much CPU
             delay(misc)
@@ -111,9 +130,13 @@ class PlayerFragment : Fragment() {
     // with two digit minutes and two digit sections, e.g., 01:30
     private fun convertTime(milliseconds: Int): String {
         //XXX Write me
+        return "Test Time"
+        //XXX End me
     }
 
     // XXX Write me, handle player dynamics and currently playing/next song
+
+    // XXX End
 
     override fun onDestroyView() {
         super.onDestroyView()

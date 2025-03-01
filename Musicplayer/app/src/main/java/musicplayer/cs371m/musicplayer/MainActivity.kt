@@ -6,13 +6,17 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.recyclerview.widget.RecyclerView
 import musicplayer.cs371m.musicplayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +35,23 @@ class MainActivity : AppCompatActivity() {
     private fun initMenu() {
         addMenuProvider(object : MenuProvider {
             // XXX Write me, menu provider overrides
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Inflate menu resource
+                menuInflater.inflate(R.menu.player_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle menu item selection
+                return when (menuItem.itemId) {
+                    R.id.action_settings -> {
+                        // Handle settings action
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            //XXX End
         })
     }
 
@@ -50,5 +71,7 @@ class MainActivity : AppCompatActivity() {
     // If we came here from another app, return to it.
     override fun onSupportNavigateUp(): Boolean {
         // XXX Write me
+        return true
+        //XXX End
     }
 }
