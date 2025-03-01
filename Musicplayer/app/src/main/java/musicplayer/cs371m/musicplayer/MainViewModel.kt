@@ -48,25 +48,26 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // Private function
     private fun nextIndex() : Int {
         // XXX Write me
-        if (currentIndex == songResources.size - 1){
-            return 0
-        }
-        else{
-            return currentIndex+1
-        }
+        return (currentIndex + 1) % songResources.size
     }
-    fun nextSong() {
+    fun nextSong():SongInfo {  //Not sure if should return as SongInfo format, original copy does not have
         // XXX Write me
+        currentIndex = nextIndex()
+        return songResources[currentIndex]
     }
     fun getNextSongName() : String {
         // XXX Write me
+        return songResources[nextIndex()].name
     }
 
-    fun prevSong() {
+    fun prevSong():SongInfo { //Not sure if should return as SongInfo format, original copy does not have
         // XXX Write me
+        currentIndex = if (currentIndex > 0) currentIndex - 1 else songResources.size - 1
+        return songResources[currentIndex]
     }
 
     fun getCurrentSongResourceId(): Int {
         // XXX Write me
+        return songResources[currentIndex].uniqueId
     }
 }
