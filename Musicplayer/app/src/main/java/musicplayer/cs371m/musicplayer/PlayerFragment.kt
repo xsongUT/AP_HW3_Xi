@@ -112,6 +112,7 @@ class PlayerFragment : Fragment() {
         //XXX End
 
         //XXX Write me. binding.playerSeekBar.setOnSeekBarChangeListener
+        binding.playerSeekBar.max = 100
         binding.playerSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if(fromUser){
@@ -151,9 +152,14 @@ class PlayerFragment : Fragment() {
             // and update the passed and remaining time
             //XXX Write me
 
-            // update time
-            binding.playerTimePassedText.text = convertTime(currentPosition)
-            binding.playerTimeRemainingText.text = convertTime(maxTime - currentPosition)
+            if(!userModifyingSeekBar.get() && viewModel.isPlaying){
+                // update time current/remaining
+                binding.playerTimePassedText.text = convertTime(currentPosition)
+                binding.playerTimeRemainingText.text = convertTime(maxTime - currentPosition)
+
+                // update seekbar
+                binding.playerSeekBar.progress = currentPosition * 100 / maxTime
+            }
 
             //XXX End
             // Leave this code as is.  it inserts a delay so that this thread does
