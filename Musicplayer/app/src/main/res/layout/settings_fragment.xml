@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_margin="8dp"
+        app:layout_constraintTop_toBottomOf="@id/action_settings"
         >
 
         <TextView
@@ -37,7 +38,7 @@
             android:layout_marginStart="16dp"
             />
     </LinearLayout>
-    <?xml version="1.0" encoding="utf-8"?>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

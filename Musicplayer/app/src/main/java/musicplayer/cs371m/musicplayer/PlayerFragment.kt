@@ -84,6 +84,9 @@ class PlayerFragment : Fragment() {
         initRecyclerViewDividers(binding.playerRV)
 
         //XXX End
+
+        //XXX Write me. Write callbacks for buttons
+        // play/pause
         binding.playerPlayPauseButton.setOnClickListener(){
             if(viewModel.isPlaying){
                 viewModel.player.pause()
@@ -93,11 +96,34 @@ class PlayerFragment : Fragment() {
                 viewModel.player.start()
                 viewModel.isPlaying = true
                 binding.playerPlayPauseButton.setImageResource(R.drawable.ic_pause_black_24dp)
+
+                viewModel.songsPlayed += 1
             }
         }
 
-        //XXX Write me. Write callbacks for buttons
+        // next
+        binding.playerSkipForwardButton.setOnClickListener(){
+            if(viewModel.isPlaying){
+                viewModel.player.stop()
+                val k = viewModel.currentIndex
+                val i = viewModel.nextSong().uniqueId;
+                //if(i >= )
+                //if(viewModel.nextSong().uniqueId)
+                viewModel.player.selectTrack(viewModel.nextSong().uniqueId)
+                viewModel.player.start()
+            }else{
+                // ?
+            }
+        }
 
+        // prev
+        binding.playerSkipBackButton.setOnClickListener(){
+            if(viewModel.isPlaying){
+
+            }else{
+                // ?
+            }
+        }
         //XXX End
 
         //XXX Write me. binding.playerSeekBar.setOnSeekBarChangeListener
