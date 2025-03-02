@@ -95,48 +95,38 @@ class PlayerFragment : Fragment() {
 
         //XXX Write me. Write callbacks for buttons
         // play/pause
-        binding.playerPlayPauseButton.setOnClickListener(){
-            if(viewModel.isPlaying){
-                viewModel.player.pause()
-                viewModel.isPlaying = false
-                viewModel.songsPlayed += 1
-            }else{
-                viewModel.player.start()
-                viewModel.isPlaying = true
-            }
+        binding.playerPlayPauseButton.setOnClickListener {
+            HandleCurrentSong()
             updateDisplay()
         }
-
         // next
-        binding.playerSkipForwardButton.setOnClickListener(){
-            if(viewModel.isPlaying){
-                viewModel.player.stop()
-                viewModel.currentIndex = viewModel.nextSong().uniqueId
-                viewModel.player = MediaPlayer.create(viewModel.getApplication(),
-                    viewModel.getCurrentSongResourceId())
-                viewModel.player.start()
-            }else{
-                // ?
-            }
+        binding.playerSkipForwardButton.setOnClickListener {
+            HandlePlayNextSong()
+            updateDisplay()
         }
-
         // prev
-        binding.playerSkipBackButton.setOnClickListener(){
-            if(viewModel.isPlaying){
-                viewModel.player.stop()
-                viewModel.currentIndex = viewModel.prevSong().uniqueId
-                viewModel.player = MediaPlayer.create(viewModel.getApplication(),
-                    viewModel.getCurrentSongResourceId())
-                viewModel.player.start()
-            }else{
-                // ?
-            }
+        binding.playerSkipBackButton.setOnClickListener {
+            HandlePlayPrevSong()
+            updateDisplay()
         }
         //XXX End
 
         //XXX Write me. binding.playerSeekBar.setOnSeekBarChangeListener
-
+        binding.playerSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if(fromUser){
+                    HandleSeekBarDragging()
+                }
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                HandleSeekBarDragBegin()
+            }
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                HandleSeekBarDragEnd()
+            }
+        })
         //XXX End
+
         updateDisplay()
 
         // Don't change this code.  We are launching a coroutine (user-level thread) that will
@@ -161,6 +151,10 @@ class PlayerFragment : Fragment() {
             // and update the passed and remaining time
             //XXX Write me
 
+            // update time
+            binding.playerTimePassedText.text = convertTime(currentPosition)
+            binding.playerTimeRemainingText.text = convertTime(maxTime - currentPosition)
+
             //XXX End
             // Leave this code as is.  it inserts a delay so that this thread does
             // not consume too much CPU
@@ -172,12 +166,70 @@ class PlayerFragment : Fragment() {
     // with two digit minutes and two digit sections, e.g., 01:30
     private fun convertTime(milliseconds: Int): String {
         //XXX Write me
-        return "Test Time"
+        val seconds = (milliseconds / 1000).toInt()
+        val mm = seconds / 60
+        val ss = seconds % 60
+        return String.format("%02d:%02d", mm, ss)
         //XXX End me
     }
 
     // XXX Write me, handle player dynamics and currently playing/next song
+    // play current song
+    private fun HandleCurrentSong(){
+        if(viewModel.isPlaying){
+            viewModel.player.pause()
+            viewModel.isPlaying = false
+            viewModel.songsPlayed += 1
+        }else{
+            viewModel.player.start()
+            viewModel.isPlaying = true
+        }
+    }
+    // play next song
+    private fun HandlePlayNextSong(){
+        if(viewModel.isPlaying){
+            viewModel.player.stop()
+            viewModel.player.reset()
+            viewModel.player.release()
+            viewModel.currentIndex = viewModel.nextSong().uniqueId
+            viewModel.player = MediaPlayer.create(viewModel.getApplication(),
+                viewModel.getCurrentSongResourceId())
+            viewModel.player.start()
+        }else{
+            // ?
+        }
+    }
+    // play prev song
+    private fun HandlePlayPrevSong(){
+        if(viewModel.isPlaying){
+            viewModel.player.stop()
+            viewModel.player.reset()
+            viewModel.player.release()
+            viewModel.currentIndex = viewModel.prevSong().uniqueId
+            viewModel.player = MediaPlayer.create(viewModel.getApplication(),
+                viewModel.getCurrentSongResourceId())
+            viewModel.player.start()
+        }else{
+            // ?
+        }
+    }
 
+    // seekbar dragging
+    private fun HandleSeekBarDragging() {
+        if(userModifyingSeekBar.get()){
+
+        }
+    }
+    // seekbar begin
+    private fun HandleSeekBarDragBegin(){
+        userModifyingSeekBar.set(true)
+    }
+
+    // seekbar end
+    private fun HandleSeekBarDragEnd(){
+        //viewModel.player.seekTo()
+        userModifyingSeekBar.set(false)
+    }
     // XXX End
 
     override fun onDestroyView() {
