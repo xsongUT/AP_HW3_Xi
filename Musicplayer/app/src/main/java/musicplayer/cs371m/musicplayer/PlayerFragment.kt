@@ -70,23 +70,31 @@ class PlayerFragment : Fragment() {
 
         // Make the RVDiffAdapter and set it up
         //XXX Write me. Setup adapter.
-
-        val vm = viewModel
-        // Setup adapter
-//        adapter = RVDiffAdapter(viewModel){ songIndex ->
-//            //val currentSong = viewModel.currentIndex
-//            //if(currentSong == songIndex){
-//                println("OK")
-//            //}
-//        }
-        //binding.musicListRecyclerView.adapter = adapter
+        adapter = RVDiffAdapter(viewModel){ songIndex ->
+            val currentSong = viewModel.currentIndex
+            if(currentSong == songIndex){
+                println("OK")
+            }
+        }
+        binding.playerRV.adapter = adapter
 
         //No Need: binding.musicListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         // initialize list
-        //initRecyclerViewDividers(binding.musicListRecyclerView)
+        initRecyclerViewDividers(binding.playerRV)
 
         //XXX End
+        binding.playerPlayPauseButton.setOnClickListener(){
+            if(viewModel.isPlaying){
+                viewModel.player.pause()
+                viewModel.isPlaying = false
+                binding.playerPlayPauseButton.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+            }else{
+                viewModel.player.start()
+                viewModel.isPlaying = true
+                binding.playerPlayPauseButton.setImageResource(R.drawable.ic_pause_black_24dp)
+            }
+        }
 
         //XXX Write me. Write callbacks for buttons
 
@@ -113,8 +121,8 @@ class PlayerFragment : Fragment() {
     private suspend fun displayTime(misc: Long) {
         // This only runs while the display is active
         while (viewLifecycleOwner.lifecycleScope.coroutineContext.isActive) {
-            //fix later: val currentPosition = viewModel.player.currentPosition
-            //fix later: val maxTime = viewModel.player.duration
+            val currentPosition = viewModel.player.currentPosition
+            val maxTime = viewModel.player.duration
             // Update the seek bar (if the user isn't updating it)
             // and update the passed and remaining time
             //XXX Write me

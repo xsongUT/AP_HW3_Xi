@@ -45,6 +45,8 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initMenu()
         // XXX Write me findNavController().popBackStack() exits
+
+        // XXX End
     }
 
     override fun onDestroyView() {

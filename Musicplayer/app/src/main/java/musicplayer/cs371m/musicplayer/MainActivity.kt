@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity() {
                     else -> false
                 }
             }
-
             //XXX End
         })
     }
