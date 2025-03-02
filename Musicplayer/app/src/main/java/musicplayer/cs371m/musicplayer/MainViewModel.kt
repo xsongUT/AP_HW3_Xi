@@ -54,7 +54,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun nextSong() {
         // XXX Write me
         currentIndex = nextIndex()
-        return songResources[currentIndex]
         // XXX Write me
     }
     fun getNextSongName() : String {
@@ -66,7 +65,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun prevSong() { 
         // XXX Write me
         currentIndex = if (currentIndex > 0) currentIndex - 1 else songResources.size - 1
-        return songResources[currentIndex]
         // XXX End
     }
 

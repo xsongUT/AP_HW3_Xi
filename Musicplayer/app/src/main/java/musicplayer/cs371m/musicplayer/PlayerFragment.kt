@@ -200,13 +200,13 @@ class PlayerFragment : Fragment() {
 
     // play next song
     private fun handlePlayNextSong(){
-        initPlayer( viewModel.getCopyOfSongInfo().indexOf(viewModel.nextSong()))
+        initPlayer(-1)
         handleCurrentSong()
     }
 
     // play prev song
     private fun handlePlayPrevSong(){
-        initPlayer(viewModel.getCopyOfSongInfo().indexOf(viewModel.prevSong()))
+        initPlayer(-2)
         handleCurrentSong()
     }
 
@@ -248,7 +248,17 @@ class PlayerFragment : Fragment() {
 
         viewModel.player.reset()
         viewModel.player.release()
-        viewModel.currentIndex = songIndex
+
+        if(songIndex == -1){
+            viewModel.nextSong()
+        }else if(songIndex == -2)
+        {
+            viewModel.prevSong()
+        }
+        else{
+            viewModel.currentIndex = songIndex
+        }
+
         viewModel.player = MediaPlayer.create(viewModel.getApplication(),
             viewModel.getCurrentSongResourceId())
 
