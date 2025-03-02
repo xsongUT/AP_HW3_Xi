@@ -75,8 +75,14 @@ class PlayerFragment : Fragment() {
         val nextSong: String = viewModel.getNextSongName()
         binding.playerNextSongText.text = nextSong
 
-        // current song in the list
-
+        // Highlight current song in the list
+        //val position = adapter.currentList.
+//        if (position == viewModel.currentIndex) {
+//            val holder = adapter.itemv()
+//            MainActivity.setBackgroundColor(holder.itemView, Color.LTGRAY)
+//        } else {
+//            MainActivity.setBackgroundColor(holder.itemView, Color.TRANSPARENT)
+//        }
 
         //XXX End
     }
@@ -88,7 +94,7 @@ class PlayerFragment : Fragment() {
         //XXX Write me. Setup adapter.
         adapter = RVDiffAdapter(viewModel){ songIndex ->
             // Handle item click
-            viewModel.currentIndex = songIndex
+            initPlayer(songIndex)
             handleCurrentSong()
         }
         binding.playerRV.adapter = adapter
@@ -101,17 +107,15 @@ class PlayerFragment : Fragment() {
         // play/pause
         binding.playerPlayPauseButton.setOnClickListener {
             handleCurrentSong()
-            updateDisplay()
         }
         // next
         binding.playerSkipForwardButton.setOnClickListener {
             handlePlayNextSong()
-            updateDisplay()
         }
         // prev
         binding.playerSkipBackButton.setOnClickListener {
             handlePlayPrevSong()
-            updateDisplay()
+            //updateDisplay()
         }
         //XXX End
 
@@ -120,7 +124,7 @@ class PlayerFragment : Fragment() {
         binding.playerSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 //                if(fromUser){
-//                    handleSeekBarDragging(progress)
+//                    handleSeekBarDragging()
 //                }
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -194,39 +198,23 @@ class PlayerFragment : Fragment() {
             viewModel.player.start()
             viewModel.isPlaying = true
         }
+        updateDisplay()
     }
+
     // play next song
     private fun handlePlayNextSong(){
-        if(viewModel.isPlaying){
-            viewModel.player.stop()
-            viewModel.player.reset()
-            viewModel.player.release()
-            viewModel.currentIndex = viewModel.nextSong().uniqueId
-            viewModel.player = MediaPlayer.create(viewModel.getApplication(),
-                viewModel.getCurrentSongResourceId())
-            viewModel.player.start()
-        }else{
-            // ?
-        }
+        initPlayer( viewModel.getCopyOfSongInfo().indexOf(viewModel.nextSong()))
+        handleCurrentSong()
     }
+
     // play prev song
     private fun handlePlayPrevSong(){
-        if(viewModel.isPlaying){
-            viewModel.player.stop()
-            viewModel.player.reset()
-            viewModel.player.release()
-            viewModel.currentIndex = viewModel.prevSong().uniqueId
-            viewModel.player = MediaPlayer.create(viewModel.getApplication(),
-                viewModel.getCurrentSongResourceId())
-            viewModel.player.start()
-        }else{
-            // ?
-        }
+        initPlayer(viewModel.getCopyOfSongInfo().indexOf(viewModel.prevSong()))
+        handleCurrentSong()
     }
 
     // seekbar dragging
-    private fun handleSeekBarDragging(progress: Int) {
-
+    private fun handleSeekBarDragging() {
     }
     // seekbar begin
     private fun handleSeekBarDragBegin(){
@@ -243,6 +231,28 @@ class PlayerFragment : Fragment() {
             viewModel.player.seekTo(seekTime)
         }
         userModifyingSeekBar.set(false)
+    }
+
+//    // update time info
+//    private fun initTimeInfo(){
+//        // update time current/remaining
+//        binding.playerTimePassedText.text = convertTime(0)
+//        binding.playerTimeRemainingText.text = convertTime(viewModel.player.duration)
+//        // update seekbar
+//        binding.playerSeekBar.progress = 0
+//    }
+
+    // init player time info
+    private fun initPlayer(songIndex : Int){
+        if(viewModel.isPlaying){
+            viewModel.player.stop()
+            viewModel.isPlaying = false
+        }
+        viewModel.player.reset()
+        viewModel.player.release()
+        viewModel.currentIndex = songIndex
+        viewModel.player = MediaPlayer.create(viewModel.getApplication(),
+            viewModel.getCurrentSongResourceId())
     }
     // XXX End
 

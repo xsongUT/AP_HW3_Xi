@@ -33,6 +33,13 @@ class RVDiffAdapter(private val viewModel: MainViewModel,
             itemView.setOnClickListener {
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
+
+                    // Notify the adapter of the changes
+                    val oldIndex = viewModel.currentIndex
+                    viewModel.currentIndex = position
+                    notifyItemChanged(oldIndex)
+                    notifyItemChanged(position)
+
                     // Pass the song index to the clickListener
                     clickListener(position)
                 }
