@@ -30,8 +30,7 @@ class RVDiffAdapter(private val viewModel: MainViewModel,
         : RecyclerView.ViewHolder(songRowBinding.root) {
         init {
             //XXX Write me.
-            // Set up the click listener for the song row
-            songRowBinding.root.setOnClickListener {
+            itemView.setOnClickListener {
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     // Pass the song index to the clickListener
@@ -52,9 +51,9 @@ class RVDiffAdapter(private val viewModel: MainViewModel,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //XXX Write me.
-        val song = getItem(position)  // Get the SongInfo for the current position
-        holder.songRowBinding.songName.text = song.name
-        holder.songRowBinding.songDuration.text = song.time
+        val songInfo = getItem(position)  // Get the SongInfo for the current position
+        holder.songRowBinding.songName.text = songInfo.name
+        holder.songRowBinding.songDuration.text = songInfo.time
         // XXX end
     }
 

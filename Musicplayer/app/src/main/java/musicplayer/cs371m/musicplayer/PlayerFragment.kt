@@ -61,6 +61,24 @@ class PlayerFragment : Fragment() {
         //XXX Write me. Make sure all player UI elements are up to date
         // That includes all buttons, textViews, icons & the seek bar
 
+        // playerRV
+        binding.playerRV.layoutManager = LinearLayoutManager(requireContext())
+        initRecyclerViewDividers(binding.playerRV)
+
+        // playerPlayPauseButton
+        if(viewModel.isPlaying){
+            binding.playerPlayPauseButton.setImageResource(R.drawable.ic_pause_black_24dp)
+        }else{
+            binding.playerPlayPauseButton.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+        }
+
+        // playerCurrentSongText
+        val currentSong: String = viewModel.getCurrentSongName()
+        binding.playerCurrentSongText.text = currentSong
+
+        // playerNextSongText
+        val nextSong: String = viewModel.getNextSongName()
+        binding.playerNextSongText.text = nextSong
 
         //XXX End
     }
@@ -70,18 +88,8 @@ class PlayerFragment : Fragment() {
 
         // Make the RVDiffAdapter and set it up
         //XXX Write me. Setup adapter.
-        adapter = RVDiffAdapter(viewModel){ songIndex ->
-            val currentSong = viewModel.currentIndex
-            if(currentSong == songIndex){
-                println("OK")
-            }
+        binding.playerRV.adapter = RVDiffAdapter(viewModel){ songIndex ->
         }
-        binding.playerRV.adapter = adapter
-
-        //No Need: binding.musicListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        // initialize list
-        initRecyclerViewDividers(binding.playerRV)
 
         //XXX End
 
@@ -91,25 +99,21 @@ class PlayerFragment : Fragment() {
             if(viewModel.isPlaying){
                 viewModel.player.pause()
                 viewModel.isPlaying = false
-                binding.playerPlayPauseButton.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+                viewModel.songsPlayed += 1
             }else{
                 viewModel.player.start()
                 viewModel.isPlaying = true
-                binding.playerPlayPauseButton.setImageResource(R.drawable.ic_pause_black_24dp)
-
-                viewModel.songsPlayed += 1
             }
+            updateDisplay()
         }
 
         // next
         binding.playerSkipForwardButton.setOnClickListener(){
             if(viewModel.isPlaying){
                 viewModel.player.stop()
-                val k = viewModel.currentIndex
-                val i = viewModel.nextSong().uniqueId;
-                //if(i >= )
-                //if(viewModel.nextSong().uniqueId)
-                viewModel.player.selectTrack(viewModel.nextSong().uniqueId)
+                viewModel.currentIndex = viewModel.nextSong().uniqueId
+                viewModel.player = MediaPlayer.create(viewModel.getApplication(),
+                    viewModel.getCurrentSongResourceId())
                 viewModel.player.start()
             }else{
                 // ?
@@ -119,7 +123,11 @@ class PlayerFragment : Fragment() {
         // prev
         binding.playerSkipBackButton.setOnClickListener(){
             if(viewModel.isPlaying){
-
+                viewModel.player.stop()
+                viewModel.currentIndex = viewModel.prevSong().uniqueId
+                viewModel.player = MediaPlayer.create(viewModel.getApplication(),
+                    viewModel.getCurrentSongResourceId())
+                viewModel.player.start()
             }else{
                 // ?
             }
