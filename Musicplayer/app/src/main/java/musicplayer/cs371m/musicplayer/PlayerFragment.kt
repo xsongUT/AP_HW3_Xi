@@ -152,11 +152,10 @@ class PlayerFragment : Fragment() {
             // and update the passed and remaining time
             //XXX Write me
 
-            if(!userModifyingSeekBar.get() && viewModel.isPlaying){
+            if(!userModifyingSeekBar.get()){  //  && viewModel.isPlaying
                 // update time current/remaining
                 binding.playerTimePassedText.text = convertTime(currentPosition)
                 binding.playerTimeRemainingText.text = convertTime(maxTime - currentPosition)
-
                 // update seekbar
                 binding.playerSeekBar.progress = currentPosition * 100 / maxTime
             }
