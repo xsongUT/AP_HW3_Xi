@@ -75,15 +75,11 @@ class PlayerFragment : Fragment() {
         val nextSong: String = viewModel.getNextSongName()
         binding.playerNextSongText.text = nextSong
 
-        // Highlight current song in the list
-        //val position = adapter.currentList.
-//        if (position == viewModel.currentIndex) {
-//            val holder = adapter.itemv()
-//            MainActivity.setBackgroundColor(holder.itemView, Color.LTGRAY)
-//        } else {
-//            MainActivity.setBackgroundColor(holder.itemView, Color.TRANSPARENT)
-//        }
-
+        // highlight current
+//        val oldIndex = viewModel.getCopyOfSongInfo().indexOf(viewModel.prevSong())
+//        adapter.notifyItemChanged(oldIndex)
+//        val currentIndex = viewModel.currentIndex
+//        adapter.notifyItemChanged(currentIndex)
         //XXX End
     }
 
@@ -99,6 +95,8 @@ class PlayerFragment : Fragment() {
         }
         binding.playerRV.adapter = adapter
         binding.playerRV.layoutManager = LinearLayoutManager(requireContext())
+        binding.playerRV.isNestedScrollingEnabled = false
+
         initRecyclerViewDividers(binding.playerRV)
         adapter.submitList(viewModel.getCopyOfSongInfo())
         //XXX End
@@ -115,7 +113,6 @@ class PlayerFragment : Fragment() {
         // prev
         binding.playerSkipBackButton.setOnClickListener {
             handlePlayPrevSong()
-            //updateDisplay()
         }
         //XXX End
 
@@ -193,10 +190,10 @@ class PlayerFragment : Fragment() {
         if(viewModel.isPlaying){
             viewModel.player.pause()
             viewModel.isPlaying = false
-            viewModel.songsPlayed += 1
         }else{
             viewModel.player.start()
             viewModel.isPlaying = true
+            viewModel.songsPlayed += 1
         }
         updateDisplay()
     }
@@ -248,11 +245,14 @@ class PlayerFragment : Fragment() {
             viewModel.player.stop()
             viewModel.isPlaying = false
         }
+
         viewModel.player.reset()
         viewModel.player.release()
         viewModel.currentIndex = songIndex
         viewModel.player = MediaPlayer.create(viewModel.getApplication(),
             viewModel.getCurrentSongResourceId())
+
+        adapter.notifyItemChanged(viewModel.currentIndex)
     }
     // XXX End
 
