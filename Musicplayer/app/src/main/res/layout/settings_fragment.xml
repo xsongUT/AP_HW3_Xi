@@ -16,7 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        >
 
         <TextView
             android:id="@+id/tv_music_played"
@@ -24,9 +25,9 @@
             android:layout_height="match_parent"
             android:text="Number of songs played:"
             android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_marginStart="16dp"
-            android:layout_margin="8dp"/>
+            android:textSize="20sp"
+
+           />
 
         <TextView
             android:id="@+id/count_music_played"
@@ -34,21 +35,22 @@
             android:layout_height="match_parent"
             android:text="wait input the number of musics played"
             android:layout_marginStart="16dp"
-            android:layout_margin="8dp"/>
+            />
     </LinearLayout>
     <?xml version="1.0" encoding="utf-8"?>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_margin="8dp">
 
         <!-- First Row: Loop Setting -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            >
 
             <!-- TextView for Loop Label -->
             <TextView
@@ -56,17 +58,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Loop:"
-                android:textSize="18sp"
-                android:layout_marginEnd="10dp"/>
+                android:textSize="16sp"
+                />
 
             <!-- SeekBar for Loop Toggle -->
             <SeekBar
                 android:id="@+id/loop_seekbar"
-                android:layout_width="10dp"
+                android:layout_width="50dp"
                 android:layout_height="24dp"
-                android:layout_weight="1"
                 android:max="1"
                 android:progress="0" />
+            <!-- Empty space (no view, just for separation) -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <!-- Second Row: Buttons -->
