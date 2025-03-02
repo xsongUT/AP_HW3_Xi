@@ -96,34 +96,34 @@ class PlayerFragment : Fragment() {
         //XXX Write me. Write callbacks for buttons
         // play/pause
         binding.playerPlayPauseButton.setOnClickListener {
-            HandleCurrentSong()
+            handleCurrentSong()
             updateDisplay()
         }
         // next
         binding.playerSkipForwardButton.setOnClickListener {
-            HandlePlayNextSong()
+            handlePlayNextSong()
             updateDisplay()
         }
         // prev
         binding.playerSkipBackButton.setOnClickListener {
-            HandlePlayPrevSong()
+            handlePlayPrevSong()
             updateDisplay()
         }
         //XXX End
 
         //XXX Write me. binding.playerSeekBar.setOnSeekBarChangeListener
-        binding.playerSeekBar.max = 100
+        //binding.playerSeekBar.max = 100
         binding.playerSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if(fromUser){
-                    HandleSeekBarDragging()
-                }
+//                if(fromUser){
+//                    handleSeekBarDragging(progress)
+//                }
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                HandleSeekBarDragBegin()
+                handleSeekBarDragBegin()
             }
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                HandleSeekBarDragEnd()
+                handleSeekBarDragEnd(seekBar)
             }
         })
         //XXX End
@@ -157,7 +157,8 @@ class PlayerFragment : Fragment() {
                 binding.playerTimePassedText.text = convertTime(currentPosition)
                 binding.playerTimeRemainingText.text = convertTime(maxTime - currentPosition)
                 // update seekbar
-                binding.playerSeekBar.progress = currentPosition * 100 / maxTime
+                val maxProgress = binding.playerSeekBar.max
+                binding.playerSeekBar.progress = maxProgress * currentPosition / maxTime
             }
 
             //XXX End
@@ -180,7 +181,7 @@ class PlayerFragment : Fragment() {
 
     // XXX Write me, handle player dynamics and currently playing/next song
     // play current song
-    private fun HandleCurrentSong(){
+    private fun handleCurrentSong(){
         if(viewModel.isPlaying){
             viewModel.player.pause()
             viewModel.isPlaying = false
@@ -191,7 +192,7 @@ class PlayerFragment : Fragment() {
         }
     }
     // play next song
-    private fun HandlePlayNextSong(){
+    private fun handlePlayNextSong(){
         if(viewModel.isPlaying){
             viewModel.player.stop()
             viewModel.player.reset()
@@ -205,7 +206,7 @@ class PlayerFragment : Fragment() {
         }
     }
     // play prev song
-    private fun HandlePlayPrevSong(){
+    private fun handlePlayPrevSong(){
         if(viewModel.isPlaying){
             viewModel.player.stop()
             viewModel.player.reset()
@@ -220,19 +221,23 @@ class PlayerFragment : Fragment() {
     }
 
     // seekbar dragging
-    private fun HandleSeekBarDragging() {
-        if(userModifyingSeekBar.get()){
+    private fun handleSeekBarDragging(progress: Int) {
 
-        }
     }
     // seekbar begin
-    private fun HandleSeekBarDragBegin(){
+    private fun handleSeekBarDragBegin(){
         userModifyingSeekBar.set(true)
     }
 
     // seekbar end
-    private fun HandleSeekBarDragEnd(){
-        //viewModel.player.seekTo()
+    private fun handleSeekBarDragEnd(seekBar: SeekBar?){
+        if(userModifyingSeekBar.get()){
+            val progress: Int = seekBar?.progress ?: 0
+            val maxProgress = binding.playerSeekBar.max
+            val maxTime = viewModel.player.duration
+            val seekTime = maxTime * progress / maxProgress
+            viewModel.player.seekTo(seekTime)
+        }
         userModifyingSeekBar.set(false)
     }
     // XXX End
