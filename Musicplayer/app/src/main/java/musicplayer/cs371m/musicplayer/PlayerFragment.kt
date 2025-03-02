@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -61,10 +60,6 @@ class PlayerFragment : Fragment() {
         //XXX Write me. Make sure all player UI elements are up to date
         // That includes all buttons, textViews, icons & the seek bar
 
-        // playerRV
-        binding.playerRV.layoutManager = LinearLayoutManager(requireContext())
-        initRecyclerViewDividers(binding.playerRV)
-
         // playerPlayPauseButton
         if(viewModel.isPlaying){
             binding.playerPlayPauseButton.setImageResource(R.drawable.ic_pause_black_24dp)
@@ -80,6 +75,9 @@ class PlayerFragment : Fragment() {
         val nextSong: String = viewModel.getNextSongName()
         binding.playerNextSongText.text = nextSong
 
+        // current song in the list
+
+
         //XXX End
     }
 
@@ -88,9 +86,15 @@ class PlayerFragment : Fragment() {
 
         // Make the RVDiffAdapter and set it up
         //XXX Write me. Setup adapter.
-        binding.playerRV.adapter = RVDiffAdapter(viewModel){ songIndex ->
+        adapter = RVDiffAdapter(viewModel){ songIndex ->
+            // Handle item click
+            viewModel.currentIndex = songIndex
+            handleCurrentSong()
         }
-
+        binding.playerRV.adapter = adapter
+        binding.playerRV.layoutManager = LinearLayoutManager(requireContext())
+        initRecyclerViewDividers(binding.playerRV)
+        adapter.submitList(viewModel.getCopyOfSongInfo())
         //XXX End
 
         //XXX Write me. Write callbacks for buttons

@@ -54,13 +54,20 @@ class RVDiffAdapter(private val viewModel: MainViewModel,
         val songInfo = getItem(position)  // Get the SongInfo for the current position
         holder.songRowBinding.songName.text = songInfo.name
         holder.songRowBinding.songDuration.text = songInfo.time
+
+        // Highlight the selected item
+        if (position == viewModel.currentIndex) {
+            MainActivity.setBackgroundColor(holder.itemView, Color.LTGRAY)
+        } else {
+            MainActivity.setBackgroundColor(holder.itemView, Color.TRANSPARENT)
+        }
         // XXX end
     }
 
     class Diff : DiffUtil.ItemCallback<SongInfo>() {
-        // Item identity
+        // Item identical
         override fun areItemsTheSame(oldItem: SongInfo, newItem: SongInfo): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
+            return oldItem.uniqueId == newItem.uniqueId
         }
         // Item contents are the same, but the object might have changed
         override fun areContentsTheSame(oldItem: SongInfo, newItem: SongInfo): Boolean {
