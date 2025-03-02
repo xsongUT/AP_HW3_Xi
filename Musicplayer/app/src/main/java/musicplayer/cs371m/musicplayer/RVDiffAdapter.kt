@@ -64,7 +64,7 @@ class RVDiffAdapter(private val viewModel: MainViewModel,
 
         // Highlight the selected item
         if (position == viewModel.currentIndex) {
-            MainActivity.setBackgroundColor(holder.itemView, Color.LTGRAY)
+            MainActivity.setBackgroundColor(holder.itemView, Color.YELLOW)
         } else {
             MainActivity.setBackgroundColor(holder.itemView, Color.TRANSPARENT)
         }
