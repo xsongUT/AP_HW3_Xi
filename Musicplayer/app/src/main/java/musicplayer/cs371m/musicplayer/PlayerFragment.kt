@@ -80,6 +80,15 @@ class PlayerFragment : Fragment() {
 //        adapter.notifyItemChanged(oldIndex)
 //        val currentIndex = viewModel.currentIndex
 //        adapter.notifyItemChanged(currentIndex)
+
+        // Loop
+        if(viewModel.loop){
+            MainActivity.setBackgroundColor(binding.loopIndicator, Color.RED)
+        }
+        else{
+            MainActivity.setBackgroundColor(binding.loopIndicator, Color.TRANSPARENT)
+        }
+
         //XXX End
     }
 
