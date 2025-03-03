@@ -114,6 +114,10 @@ class PlayerFragment : Fragment() {
         binding.playerSkipBackButton.setOnClickListener {
             handlePlayPrevSong()
         }
+        // permute
+        binding.playerPermuteButton.setOnClickListener {
+            handleShuffleList()
+        }
         //XXX End
 
         //XXX Write me. binding.playerSeekBar.setOnSeekBarChangeListener
@@ -230,14 +234,11 @@ class PlayerFragment : Fragment() {
         userModifyingSeekBar.set(false)
     }
 
-//    // update time info
-//    private fun initTimeInfo(){
-//        // update time current/remaining
-//        binding.playerTimePassedText.text = convertTime(0)
-//        binding.playerTimeRemainingText.text = convertTime(viewModel.player.duration)
-//        // update seekbar
-//        binding.playerSeekBar.progress = 0
-//    }
+    // handle shuffle
+    private fun handleShuffleList(){
+        adapter.submitList(viewModel.shuffleAndReturnCopyOfSongInfo())
+        updateDisplay()
+    }
 
     // init player time info
     private fun initPlayer(songIndex : Int){

@@ -35,8 +35,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun shuffleAndReturnCopyOfSongInfo(): MutableList<SongInfo> {
         // XXX Write me
-        val shuffledList = songResources.shuffled().toMutableList()
-        return shuffledList
+        val currentSongInfo = songResources[currentIndex]
+        var songBufList = getCopyOfSongInfo()
+        songBufList.remove(currentSongInfo)
+        songBufList = songBufList.shuffled().toMutableList()
+        songBufList.add(currentIndex, currentSongInfo)
+        songResources = songBufList
+        return songBufList.toMutableList()
         //XXX end
     }
 
