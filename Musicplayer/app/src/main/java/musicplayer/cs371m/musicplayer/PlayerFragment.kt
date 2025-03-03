@@ -263,6 +263,16 @@ class PlayerFragment : Fragment() {
         viewModel.player = MediaPlayer.create(viewModel.getApplication(),
             viewModel.getCurrentSongResourceId())
 
+        viewModel.player.setOnCompletionListener {
+            viewModel.isPlaying = false
+            if(viewModel.loop){
+                //viewModel.player.isLooping = true
+                handleCurrentSong()
+            }else{
+                handlePlayNextSong()
+            }
+        }
+        // ?
         adapter.notifyItemChanged(viewModel.currentIndex)
     }
     // XXX End

@@ -47,12 +47,21 @@ class SettingsFragment : Fragment() {
         // XXX Write me findNavController().popBackStack() exits
         // Handle the back navigation when a button is clicked (you can attach this to any button)
         binding.cancelButton.setOnClickListener {
-            // This pops the current fragment off the back stack and goes back to the previous fragment (e.g., PlayerFragment)
+            // This pops the current fragment off the back stack and goes back to the previous fragment
+            findNavController().popBackStack()
+        }
+
+        binding.okButton.setOnClickListener {
+            // save loop
+            viewModel.loop = (binding.loopSeekbar.progress == binding.loopSeekbar.max);
+            // This pops the current fragment off the back stack and goes back to the previous fragment
             findNavController().popBackStack()
         }
 
         // update song count
         binding.countMusicPlayed.text = viewModel.songsPlayed.toString()
+        // update loop
+        binding.loopSeekbar.progress = if(viewModel.loop) binding.loopSeekbar.max else binding.loopSeekbar.min
         // XXX End
     }
 
