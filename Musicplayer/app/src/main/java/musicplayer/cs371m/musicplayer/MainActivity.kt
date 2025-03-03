@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     // If we came here from another app, return to it.
     override fun onSupportNavigateUp(): Boolean {
         // XXX Write me
-        return true
+        return navController.popBackStack()
         //XXX End
     }
 }
