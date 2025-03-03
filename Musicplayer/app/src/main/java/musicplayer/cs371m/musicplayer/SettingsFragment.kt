@@ -45,7 +45,11 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initMenu()
         // XXX Write me findNavController().popBackStack() exits
-
+        // Handle the back navigation when a button is clicked (you can attach this to any button)
+        binding.cancelButton.setOnClickListener {
+            // This pops the current fragment off the back stack and goes back to the previous fragment (e.g., PlayerFragment)
+            findNavController().popBackStack()
+        }
         // XXX End
     }
 

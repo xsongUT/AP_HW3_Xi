@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // Inflate menu resource
                 menuInflater.inflate(R.menu.player_menu, menu)
+
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -45,6 +46,9 @@ class MainActivity : AppCompatActivity() {
                 return when (menuItem.itemId) {
                     R.id.action_settings -> {
                         // Handle settings action
+                        // Use the NavHostFragment directly to ensure we find the NavController
+                        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+                        navController.navigate(R.id.settingsFragment)
                         true
                     }
                     else -> false
