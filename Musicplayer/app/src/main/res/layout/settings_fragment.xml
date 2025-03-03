@@ -35,7 +35,7 @@
             android:id="@+id/count_music_played"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="wait input the number of musics played"
+            android:text="0"
             android:layout_marginStart="16dp"
             />
     </LinearLayout>

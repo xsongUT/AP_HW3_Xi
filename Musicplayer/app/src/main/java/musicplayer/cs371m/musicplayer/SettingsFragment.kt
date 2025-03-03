@@ -50,6 +50,9 @@ class SettingsFragment : Fragment() {
             // This pops the current fragment off the back stack and goes back to the previous fragment (e.g., PlayerFragment)
             findNavController().popBackStack()
         }
+
+        // update song count
+        binding.countMusicPlayed.text = viewModel.songsPlayed.toString()
         // XXX End
     }
 
