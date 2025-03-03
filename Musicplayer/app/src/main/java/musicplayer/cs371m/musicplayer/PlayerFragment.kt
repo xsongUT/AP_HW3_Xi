@@ -117,11 +117,11 @@ class PlayerFragment : Fragment() {
         }
         // next
         binding.playerSkipForwardButton.setOnClickListener {
-            handlePlayNextSong()
+            handlePlayNextSong(viewModel.isPlaying)
         }
         // prev
         binding.playerSkipBackButton.setOnClickListener {
-            handlePlayPrevSong()
+            handlePlayPrevSong(viewModel.isPlaying)
         }
         // permute
         binding.playerPermuteButton.setOnClickListener {
@@ -212,15 +212,19 @@ class PlayerFragment : Fragment() {
     }
 
     // play next song
-    private fun handlePlayNextSong(){
+    private fun handlePlayNextSong(autoStart: Boolean){
         initPlayer(-1)
-        handleCurrentSong()
+        if(autoStart){
+            handleCurrentSong()
+        }
     }
 
     // play prev song
-    private fun handlePlayPrevSong(){
+    private fun handlePlayPrevSong(autoStart: Boolean){
         initPlayer(-2)
-        handleCurrentSong()
+        if(autoStart){
+            handleCurrentSong()
+        }
     }
 
     // seekbar dragging
@@ -278,7 +282,7 @@ class PlayerFragment : Fragment() {
                 //viewModel.player.isLooping = true
                 handleCurrentSong()
             }else{
-                handlePlayNextSong()
+                handlePlayNextSong(true)
             }
         }
         // ?
