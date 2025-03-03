@@ -76,10 +76,7 @@ class PlayerFragment : Fragment() {
         binding.playerNextSongText.text = nextSong
 
         // highlight current
-//        val oldIndex = viewModel.getCopyOfSongInfo().indexOf(viewModel.prevSong())
-//        adapter.notifyItemChanged(oldIndex)
-//        val currentIndex = viewModel.currentIndex
-//        adapter.notifyItemChanged(currentIndex)
+        adapter.notifyItemChanged(viewModel.currentIndex)
 
         // Loop
         if(viewModel.loop){
@@ -213,18 +210,22 @@ class PlayerFragment : Fragment() {
 
     // play next song
     private fun handlePlayNextSong(autoStart: Boolean){
+        updateDisplay()
         initPlayer(-1)
         if(autoStart){
             handleCurrentSong()
         }
+        updateDisplay()
     }
 
     // play prev song
     private fun handlePlayPrevSong(autoStart: Boolean){
+        updateDisplay()
         initPlayer(-2)
         if(autoStart){
             handleCurrentSong()
         }
+        updateDisplay()
     }
 
     // seekbar dragging
@@ -285,8 +286,8 @@ class PlayerFragment : Fragment() {
                 handlePlayNextSong(true)
             }
         }
-        // ?
-        adapter.notifyItemChanged(viewModel.currentIndex)
+        //
+        //adapter.notifyItemChanged(viewModel.currentIndex)
     }
     // XXX End
 
