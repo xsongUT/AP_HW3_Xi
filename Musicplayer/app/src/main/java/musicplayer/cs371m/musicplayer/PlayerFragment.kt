@@ -96,8 +96,13 @@ class PlayerFragment : Fragment() {
         //XXX Write me. Setup adapter.
         adapter = RVDiffAdapter(viewModel){ songIndex ->
             // Handle item click
-            initPlayer(songIndex)
-            handleCurrentSong()
+            if(viewModel.isPlaying) {
+                initPlayer(songIndex)
+                handleCurrentSong()
+            }else{
+                initPlayer(songIndex)
+                updateDisplay()
+            }
         }
         binding.playerRV.adapter = adapter
         binding.playerRV.layoutManager = LinearLayoutManager(requireContext())
